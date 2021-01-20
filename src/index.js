@@ -6,6 +6,9 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import Game from './Game';
 import { APP_HEIGHT, APP_WIDTH } from './appConfig';
+import * as PIXI from 'pixi.js'
+
+window.PIXI = PIXI
 
 /* ReactDOM.render(
   <React.StrictMode>

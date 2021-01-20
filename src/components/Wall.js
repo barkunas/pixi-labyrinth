@@ -19,7 +19,7 @@ class Wall extends PureComponent {
         this.props.relativeSize.map((wallsArrayX, y) => {
             let wallsLine = []
             wallsArrayX.forEach((wall, x) => {
-                if (wall) {
+                if (wall==1) {
                     let sprite = <Sprite x={BLOCK_WIDTH*x} y={0} texture={PIXI.Texture.from(wallSprite)} />
                     wallsLine.push(sprite)
                 }
