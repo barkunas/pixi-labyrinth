@@ -1,6 +1,9 @@
 const APP_WIDTH = 400;
 const APP_HEIGHT = 400;
+const BLOCK_WIDTH = 20;
+const BLOCK_HEIGHT = 20;
 
 export {
-    APP_WIDTH, APP_HEIGHT
+    APP_WIDTH, APP_HEIGHT,
+    BLOCK_WIDTH, BLOCK_HEIGHT
 }
