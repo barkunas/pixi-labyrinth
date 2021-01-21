@@ -15,7 +15,7 @@ class User extends Component {
     }
     render() {
         if (!this.state.loadImg) { return null }
-        console.log(this.props.app)
+        //console.log(this.props.app)
         //var PIXI = this.props.app
         let sheet = PIXI.Loader.shared.resources[USER_IMG].spritesheet;
         let texture = sheet.textures[FIRST_IMG_TEXTURE]
