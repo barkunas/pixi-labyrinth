@@ -19,9 +19,9 @@ export class Game extends Component {
         let centerPointY = APP_HEIGHT / 2
         let relativeX = realX - centerPointX
         let relativeY = (realY - centerPointY) * -1
-        let direction = Math.atan2(relativeX,relativeY)
+        let direction = Math.atan2(relativeX, relativeY)
         //if (direction < 0) { direction += 360 }
-        this.setState({ runDirection: direction,isMoveActive: true })
+        this.setState({ runDirection: direction, isMoveActive: true })
     }
     pointerupHandler = () => {
         this.setState({ isMoveActive: false })
@@ -37,7 +37,7 @@ export class Game extends Component {
         let centerPointY = APP_HEIGHT / 2
         let relativeX = realX - centerPointX
         let relativeY = (realY - centerPointY) * -1
-        let direction = Math.atan2(relativeX,relativeY)
+        let direction = Math.atan2(relativeX, relativeY)
         this.setState({ runDirection: direction })
     }
     render() {
@@ -50,8 +50,8 @@ export class Game extends Component {
                 pointerupoutside={this.pointerupoutsideHandler}
                 pointermove={this.pointermoveHandler}
             >
-                <User />
                 <GameField isMoveActive={this.state.isMoveActive} runDirection={this.state.runDirection} />
+                <User />
             </Container>
         )
     }

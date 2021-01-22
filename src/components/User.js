@@ -10,6 +10,9 @@ class User extends Component {
     state = {
         loadImg: false
     }
+    addUser = (ref)=>{
+        console.log(ref)
+    }
     componentDidMount() {
         PIXI.Loader.shared.add(USER_IMG).load(() => this.setState({ loadImg: true }))
     }
@@ -24,7 +27,7 @@ class User extends Component {
             y: APP_HEIGHT / 2
         }
         return (
-            <Sprite texture={texture} {...position} />
+            <Sprite ref={this.addUser} texture={texture} {...position} />
         )
     }
 }
