@@ -48,7 +48,7 @@ class GameField extends Component {
     render() {
         console.log(START_USER_POSITION_PX.y)
         return (
-            <Container y={START_USER_POSITION_PX.y}>
+            <Container x={START_USER_POSITION_PX.x} y={START_USER_POSITION_PX.y}>
                 <Container
                     x={this.state.wallPositionX}
                     y={this.state.wallPositionY}>
