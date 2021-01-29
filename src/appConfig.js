@@ -1,20 +1,19 @@
-const APP_WIDTH = 400;
-const APP_HEIGHT = 400;
-const BLOCK_WIDTH = 20;
-const BLOCK_HEIGHT = 20;
-const BG_CELL_SIZE = 20;
+const APP_WIDTH = window.innerWidth//400;
+const APP_HEIGHT = window.innerHeight//400;
+const BLOCK_WIDTH = 80;
+const BLOCK_HEIGHT = 80;
+const BG_CELL_SIZE = 80;
 const FIRST_LEVEL_WALLS = [[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],[1,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1],[1,1,1,0,1,0,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1],[1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,1],[1,1,1,0,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1],[1,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,1],[1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1],[1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,0,1],[1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1],[1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,0,0,0,3,1,0,0,1],[1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,1,1,0,1,0,1,0,1,1],[1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,1],[1,1,1,0,1,1,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,0,1,1],[1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,1],[1,1,1,0,1,1,1,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,0,1,0,1,1,1,1,1,1],[1,0,1,0,1,0,0,0,1,0,1,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1],[1,0,1,0,1,1,1,0,1,0,1,1,1,1,1,1,1,0,1,0,1,1,1,0,1,1,1,1,1,1,1,1],[1,0,0,0,1,0,0,0,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,0,0,0,1,0,0,0,0,1],[1,0,1,0,1,0,1,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1],[1,0,1,0,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,1,0,0,1],[1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]]
 
 const START_USER_POSITION = []
 START_USER_POSITION[0] = FIRST_LEVEL_WALLS.findIndex(array => { return (0 <= array.find(elem => elem == 3)) });
 START_USER_POSITION[1] = FIRST_LEVEL_WALLS[START_USER_POSITION[0]].findIndex(elem => elem == 3)
-const BG_LEVEL_HEIGHT = FIRST_LEVEL_WALLS.length * BG_CELL_SIZE
-const BG_LEVEL_WIDTH = FIRST_LEVEL_WALLS[0].length * BG_CELL_SIZE
-console.log(START_USER_POSITION)
 const START_USER_POSITION_PX = {
     x: 0 - START_USER_POSITION[1] * BLOCK_WIDTH + APP_WIDTH / 2,
     y: 0 - START_USER_POSITION[0] * BG_CELL_SIZE + APP_HEIGHT / 2
 }
+const BG_LEVEL_HEIGHT = FIRST_LEVEL_WALLS.length * BG_CELL_SIZE
+const BG_LEVEL_WIDTH = FIRST_LEVEL_WALLS[0].length * BG_CELL_SIZE
 
 export {
     APP_WIDTH, APP_HEIGHT,
@@ -23,5 +22,6 @@ export {
     START_USER_POSITION,
     START_USER_POSITION_PX,
     BG_LEVEL_WIDTH,
-    BG_LEVEL_HEIGHT
+    BG_LEVEL_HEIGHT,
+    BG_CELL_SIZE
 }

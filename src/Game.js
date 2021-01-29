@@ -1,16 +1,30 @@
 import React, { Component } from 'react'
 import { Container } from 'react-pixi-fiber'
 import { APP_HEIGHT, APP_WIDTH } from './appConfig'
+import getNewLevelConfig from './common/levelGenerator'
 import GameField from './components/GameField'
 import User from './components/User'
 
 export class Game extends Component {
+    startLevel = 1
     state = {
         isMoveActive: false,
-        runDirection: 0
+        runDirection: 0,
+        userLevel: this.startLevel,
+        levelConfig: this.generateNewLevel(this.startLevel)
     }
     mouseDownHandler = (e) => {
         console.log(e.data.global)
+    }
+    nextUserLevel = () => {
+        this.setState({ levelConfig: this.generateNewLevel(this.state.userLevel + 1), userLevel: this.state.userLevel + 1 })
+    }
+    generateNewLevel(userLevel) {
+        let levelWidth = userLevel * 10;
+        let levelHeight = userLevel * 10
+        var levelobj = getNewLevelConfig(levelHeight, levelWidth)
+        console.log(levelobj)
+        return levelobj
     }
     pointerdownHandler = (e) => {
         let realX = e.data.global.x
@@ -50,7 +64,13 @@ export class Game extends Component {
                 pointerupoutside={this.pointerupoutsideHandler}
                 pointermove={this.pointermoveHandler}
             >
-                <GameField isMoveActive={this.state.isMoveActive} runDirection={this.state.runDirection} />
+                <GameField
+                    currentUserLevel={this.state.userLevel}
+                    nextUserLevel={this.nextUserLevel}
+                    isMoveActive={this.state.isMoveActive}
+                    runDirection={this.state.runDirection}
+                    maze={this.state.levelConfig.maze}
+                    gameFiledPosition={this.state.levelConfig.START_USER_POSITION_PX} />
                 <User />
             </Container>
         )

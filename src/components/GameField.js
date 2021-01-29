@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, withApp } from 'react-pixi-fiber'
-import { APP_HEIGHT, FIRST_LEVEL_WALLS, START_USER_POSITION_PX } from '../appConfig'
+import { APP_HEIGHT, APP_WIDTH, FIRST_LEVEL_WALLS, START_USER_POSITION_PX } from '../appConfig'
 import Wall from './Wall'
 
 class GameField extends Component {
@@ -20,24 +20,31 @@ class GameField extends Component {
         let bounds = ref.getBounds()
         ref.setTransform(0, APP_HEIGHT - bounds.height)
     }
-    walls = []
-    addWall = (elem) => {
-        this.walls.push(elem)
-    }
     moveBackground = () => {
         if (this.props.isMoveActive) {
             let plusX = 2 * Math.sin(this.props.runDirection);
             let plusY = 2 * Math.cos(this.props.runDirection)
-            if (!checkCollision(this.walls, plusX, plusY)) {
+            let walls = []
+            this.props.app.stage.children[0].children[0].children[0].children[0].children.forEach(element => {
+                let children = element.children
+                walls = [...walls, ...children]
+            });
+            let collisionWithWall = checkCollision(walls, plusX, plusY)
+            if (collisionWithWall && collisionWithWall.type == 4) {
+                this.setState({ wallPositionX: 0, wallPositionY: 0 })
+                this.props.nextUserLevel();
+                return
+            }
+            if (!collisionWithWall) {
                 let x = this.state.wallPositionX - plusX;
                 let y = this.state.wallPositionY + plusY;
                 this.setState({ wallPositionX: x, wallPositionY: y })
             } else {
-                if (!checkCollision(this.walls, 0, plusY)) {
+                if (!checkCollision(walls, 0, plusY)) {
                     let x = this.state.wallPositionX;
                     let y = this.state.wallPositionY + plusY;
                     this.setState({ wallPositionX: x, wallPositionY: y })
-                } else if (!checkCollision(this.walls, plusX, 0)) {
+                } else if (!checkCollision(walls, plusX, 0)) {
                     let x = this.state.wallPositionX - plusX;
                     let y = this.state.wallPositionY;
                     this.setState({ wallPositionX: x, wallPositionY: y })
@@ -46,13 +53,12 @@ class GameField extends Component {
         }
     }
     render() {
-        console.log(START_USER_POSITION_PX.y)
         return (
-            <Container x={START_USER_POSITION_PX.x} y={START_USER_POSITION_PX.y}>
+            <Container x={this.props.gameFiledPosition.x} y={this.props.gameFiledPosition.y}>
                 <Container
                     x={this.state.wallPositionX}
                     y={this.state.wallPositionY}>
-                    <Wall relativeSize={FIRST_LEVEL_WALLS} addWall={this.addWall} />
+                    <Wall maze={this.props.maze} />
                 </Container>
             </Container>
         )
@@ -62,17 +68,15 @@ class GameField extends Component {
 export default withApp(GameField)
 
 function checkCollision(walls, plusX, PlusY) {
-    let result = walls.findIndex(wall => {
+    let result = walls.findIndex((wall, i) => {
         let bounds = wall.getBounds();
-        let user = { x: 200, y: 200, width: 12, height: 15 };
+        let user = { x: APP_WIDTH/2-15, y: APP_HEIGHT/2+15, width: 30, height: 30 };
         let collision = bounds.x - plusX + bounds.width > user.x &&
             bounds.x - plusX < user.x + user.width &&
             bounds.y + PlusY + bounds.height - 10 > user.y &&
             bounds.y + PlusY < user.y + user.height;
-        //console.log(collision)
-        if (collision) { console.log(wall.type) }
         if (wall.type == 3) { return false }
         return collision
     });
-    return !!(result + 1)
+    return walls[result]
 }

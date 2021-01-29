@@ -17,7 +17,7 @@ window.PIXI = PIXI
   document.getElementById('root')
 ); */
 ReactDOM.render(
-  <Stage /* interactive={true} pointerdown={() => { console.log('ee') }} */ options={{ backgroundColor: 0x10bb99, height: APP_HEIGHT, width: APP_WIDTH }}>
+  <Stage /* interactive={true} pointerdown={() => { console.log('ee') }} */ options={{ backgroundColor: 0x43bb43, height: APP_HEIGHT, width: APP_WIDTH }}>
     <Game/>
   </Stage>,
   document.getElementById('gameView')
