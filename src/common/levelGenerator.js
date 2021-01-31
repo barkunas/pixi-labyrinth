@@ -1,12 +1,8 @@
-import { APP_HEIGHT, APP_WIDTH, BLOCK_WIDTH,BG_CELL_SIZE } from "../appConfig";
+import { APP_HEIGHT, APP_WIDTH, BLOCK_WIDTH, BG_CELL_SIZE, _WALL, _PATH, _START, _FINISH } from "../appConfig";
 
 export default function getNewLevelConfig(COLLUMS, ROWS) {
   // 1. Start with a grid full of walls.
 
-  let _WALL = 1; //badrock
-  let _PATH = 0; //free block
-  let _START = 3; //cell for start
-  let _FINISH = 4;
   let _COLLUMS = COLLUMS;
   let _ROWS = ROWS;
 
@@ -69,7 +65,7 @@ export default function getNewLevelConfig(COLLUMS, ROWS) {
 
     walls.splice(wallIndex, 1);
   }
-  maze[cell.x][cell.y] = _START;
+  //maze[cell.x][cell.y] = _START;
   maze.forEach((array, i) => {
     array.unshift(1)
     array.push(1)
@@ -88,13 +84,14 @@ export default function getNewLevelConfig(COLLUMS, ROWS) {
     })
     return arr
   })())
-  maze[0][2] = _FINISH
+  maze[1][1] = _START
+  maze[maze.length-2][maze[0].length-2] = _FINISH;
   const START_USER_POSITION = []
-  START_USER_POSITION[0] = maze.findIndex(array => { return (0 <= array.find(elem => elem == 3)) });
-  START_USER_POSITION[1] = maze[START_USER_POSITION[0]].findIndex(elem => elem == 3)
+  START_USER_POSITION[0] = maze.findIndex(array => { return (0 <= array.find(elem => elem == _START)) });
+  START_USER_POSITION[1] = maze[START_USER_POSITION[0]].findIndex(elem => elem == _START)
   const START_USER_POSITION_PX = {
-      x: 0 - START_USER_POSITION[1] * BLOCK_WIDTH + APP_WIDTH / 2,
-      y: 0 - START_USER_POSITION[0] * BG_CELL_SIZE + APP_HEIGHT / 2
+    x: 0 - START_USER_POSITION[1] * BLOCK_WIDTH + APP_WIDTH / 2-40,
+    y: 0 - START_USER_POSITION[0] * BG_CELL_SIZE + APP_HEIGHT / 2
   }
 
   return {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, withApp } from 'react-pixi-fiber'
-import { APP_HEIGHT, APP_WIDTH, FIRST_LEVEL_WALLS, START_USER_POSITION_PX } from '../appConfig'
+import { APP_HEIGHT, APP_WIDTH, SPEED } from '../appConfig'
 import Wall from './Wall'
 
 class GameField extends Component {
@@ -22,8 +22,8 @@ class GameField extends Component {
     }
     moveBackground = () => {
         if (this.props.isMoveActive) {
-            let plusX = 2 * Math.sin(this.props.runDirection);
-            let plusY = 2 * Math.cos(this.props.runDirection)
+            let plusX = SPEED * Math.sin(this.props.runDirection);
+            let plusY = SPEED * Math.cos(this.props.runDirection)
             let walls = []
             this.props.app.stage.children[0].children[0].children[0].children[0].children.forEach(element => {
                 let children = element.children

@@ -20,8 +20,8 @@ export class Game extends Component {
         this.setState({ levelConfig: this.generateNewLevel(this.state.userLevel + 1), userLevel: this.state.userLevel + 1 })
     }
     generateNewLevel(userLevel) {
-        let levelWidth = userLevel * 10;
-        let levelHeight = userLevel * 10
+        let levelWidth = userLevel + 5;
+        let levelHeight = userLevel + 5
         var levelobj = getNewLevelConfig(levelHeight, levelWidth)
         console.log(levelobj)
         return levelobj
