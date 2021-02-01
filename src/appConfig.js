@@ -3,7 +3,7 @@ const APP_HEIGHT = window.innerHeight//400;
 const BLOCK_WIDTH = 80;
 const BLOCK_HEIGHT = 80;
 const BG_CELL_SIZE = 80;
-const SPEED = 4
+const SPEED = 6
 
 //level config
 const _WALL = 1; //badrock

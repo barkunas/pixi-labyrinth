@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container } from 'react-pixi-fiber'
+import { Container, Text } from 'react-pixi-fiber'
 import { APP_HEIGHT, APP_WIDTH } from './appConfig'
 import getNewLevelConfig from './common/levelGenerator'
 import GameField from './components/GameField'
@@ -72,6 +72,7 @@ export class Game extends Component {
                     maze={this.state.levelConfig.maze}
                     gameFiledPosition={this.state.levelConfig.START_USER_POSITION_PX} />
                 <User />
+                <Text text={`Level: ${this.state.userLevel}`}/>
             </Container>
         )
     }
