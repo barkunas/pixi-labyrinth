@@ -7,7 +7,8 @@ const SPEED = 6
 
 //level config
 const _WALL = 1; //badrock
-const _PATH = 0; //free block
+const _PATH = 0; //free block with coin
+const _PATHCoinOff = 5 //free block without coin
 const _START = 3; //cell for start
 const _FINISH = 4; //cell for finish
 
@@ -18,6 +19,7 @@ export {
     SPEED,
     _WALL,
     _PATH,
+    _PATHCoinOff,
     _START,
     _FINISH
 }

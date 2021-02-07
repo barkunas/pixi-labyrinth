@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, withApp } from 'react-pixi-fiber'
-import { APP_HEIGHT, APP_WIDTH, SPEED } from '../appConfig'
+import { APP_HEIGHT, APP_WIDTH, SPEED, _FINISH } from '../appConfig'
 import Wall from './Wall'
 
 class GameField extends Component {
@@ -30,25 +30,32 @@ class GameField extends Component {
                 walls = [...walls, ...children]
             });
             let collisionWithWall = checkCollision(walls, plusX, plusY)
-            if (collisionWithWall && collisionWithWall.type == 4) {
-                this.setState({ wallPositionX: 0, wallPositionY: 0 })
-                this.props.nextUserLevel();
-                return
-            }
-            if (!collisionWithWall) {
+            if (collisionWithWall) {
+                switch (collisionWithWall.type) {
+                    case _FINISH:
+                        this.setState({ wallPositionX: 0, wallPositionY: 0 })
+                        this.props.nextUserLevel();
+                        break;
+                    case 'coin':
+                        console.log(collisionWithWall)
+                        this.props.removeCoinFromeMaze(collisionWithWall.xPosInArray, collisionWithWall.yPosInArray)
+                        break;
+                    default:
+                        if (!checkCollision(walls, 0, plusY)) {
+                            let x = this.state.wallPositionX;
+                            let y = this.state.wallPositionY + plusY;
+                            this.setState({ wallPositionX: x, wallPositionY: y })
+                        } else if (!checkCollision(walls, plusX, 0)) {
+                            let x = this.state.wallPositionX - plusX;
+                            let y = this.state.wallPositionY;
+                            this.setState({ wallPositionX: x, wallPositionY: y })
+                        }
+                        break;
+                }
+            } else {
                 let x = this.state.wallPositionX - plusX;
                 let y = this.state.wallPositionY + plusY;
                 this.setState({ wallPositionX: x, wallPositionY: y })
-            } else {
-                if (!checkCollision(walls, 0, plusY)) {
-                    let x = this.state.wallPositionX;
-                    let y = this.state.wallPositionY + plusY;
-                    this.setState({ wallPositionX: x, wallPositionY: y })
-                } else if (!checkCollision(walls, plusX, 0)) {
-                    let x = this.state.wallPositionX - plusX;
-                    let y = this.state.wallPositionY;
-                    this.setState({ wallPositionX: x, wallPositionY: y })
-                }
             }
         }
     }
@@ -58,7 +65,7 @@ class GameField extends Component {
                 <Container
                     x={this.state.wallPositionX}
                     y={this.state.wallPositionY}>
-                    <Wall maze={this.props.maze} />
+                    <Wall update={this.props.updateWalls} maze={this.props.maze} />
                 </Container>
             </Container>
         )
@@ -70,7 +77,7 @@ export default withApp(GameField)
 function checkCollision(walls, plusX, PlusY) {
     let result = walls.findIndex((wall, i) => {
         let bounds = wall.getBounds();
-        let user = { x: APP_WIDTH/2-15, y: APP_HEIGHT/2+15, width: 30, height: 30 };
+        let user = { x: APP_WIDTH / 2 - 15, y: APP_HEIGHT / 2 + 15, width: 30, height: 30 };
         let collision = bounds.x - plusX + bounds.width > user.x &&
             bounds.x - plusX < user.x + user.width &&
             bounds.y + PlusY + bounds.height - 10 > user.y &&
