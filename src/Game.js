@@ -81,7 +81,7 @@ export class Game extends Component {
                     runDirection={this.state.runDirection}
                     maze={this.state.levelConfig.maze}
                     gameFiledPosition={this.state.levelConfig.START_USER_POSITION_PX} />
-                <User />
+                <User coinsBalance={this.state.coinsBalance}/>
                 <StatusBar userLevel={this.state.userLevel} coinsBalance={this.state.coinsBalance}/>
             </Container>
         )

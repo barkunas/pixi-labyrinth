@@ -1,18 +1,13 @@
 import { CustomPIXIComponent } from "react-pixi-fiber";
+import * as PIXI from "pixi.js";
+import * as particles from 'pixi-particles'
 
-import {Text} from '@puxi/core/lib/puxi-core.js'
+import coinSprite from '../img/coin.png'
 
-console.log(Text)
-
-
-const TYPE = "SpritePuxi";
+const TYPE = "ParticlesPIXI";
 export const behavior = {
-
-  customDisplayObject: props => new Text({
-    value: "Click me!"
-  }),
+  customDisplayObject: props => '',
   customApplyProps: function (instance, oldProps, newProps) {
-    console.log('PUXI')
     console.log(instance)
   }
 };

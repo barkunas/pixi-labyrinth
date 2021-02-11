@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
-import { Sprite, withApp, Container } from 'react-pixi-fiber';
+import { withApp, Container } from 'react-pixi-fiber';
 import * as PIXI from "pixi.js";
 import { APP_HEIGHT, APP_WIDTH } from '../appConfig';
 import AnimatedSprite from './AnimatedSprite';
 
 const USER_IMG = 'img/sprites.json'
-const FIRST_IMG_TEXTURE = 'character_base_16x16_01.png'
 
 
 class User extends Component {
@@ -28,10 +27,7 @@ class User extends Component {
     render() {
         //console.log(this.props.app)
         if (!this.state.loadImg) { return null }
-        //console.log(this.props.app)
-        //var PIXI = this.props.app
-        //let sheet = PIXI.Loader.shared.resources[USER_IMG].spritesheet;
-        //let texture = sheet.textures[FIRST_IMG_TEXTURE]
+        console.log('user render')
         
         let sheet = PIXI.Loader.shared.resources["img/user/anim.json"].spritesheet;
         let position = {
@@ -41,7 +37,7 @@ class User extends Component {
         return (
             <Container>
                 {/* <Sprite ref={this.addUser} texture={texture} {...position} /> */}
-                {<AnimatedSprite texture={sheet.animations["sprite"]} {...position}/>}
+                {<AnimatedSprite app={this.props.app}test={this.props.coinsBalance} texture={sheet.animations["sprite"]} {...position}/>}
             </Container>
         )
     }
