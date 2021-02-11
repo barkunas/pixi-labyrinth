@@ -5,7 +5,7 @@ import wallSprite from '../img/bgtile.png'
 import finishSprite from '../img/finish.png'
 import startSprite from '../img/start.png'
 import coinSprite from '../img/coin.png'
-import { BLOCK_WIDTH, BLOCK_HEIGHT, _PATH, _START, _WALL, _FINISH } from '../appConfig'
+import { BLOCK_WIDTH, BLOCK_HEIGHT, _PATH, _START, _WALL, _FINISH, _PATHCoinOff } from '../appConfig'
 
 const wallPIXITexture = PIXI.Texture.from(wallSprite)
 const finishPIXITexture = PIXI.Texture.from(finishSprite)
@@ -37,7 +37,11 @@ class Wall extends PureComponent {
                         wallsLine.push(sprite)
                         break;
                     case _PATH:
-                        sprite = <Sprite type={'coin'} xPosInArray={x} yPosInArray={y} key={'' + x + y + _PATH} name='spr_coin' x={BLOCK_WIDTH * x+20} y={0+20} texture={coinPIXITexture} />
+                        sprite = <Sprite type={'coin'} xPosInArray={x} yPosInArray={y} key={'' + x + y + _PATH} name='spr_coin' x={BLOCK_WIDTH * x + 20} y={0 + 20} texture={coinPIXITexture} />
+                        wallsLine.push(sprite)
+                        break;
+                    case _PATHCoinOff:
+                        sprite = <Sprite visible={false} type={'coinOff'} xPosInArray={x} yPosInArray={y} key={'' + x + y + _PATH} name='spr_coin' x={BLOCK_WIDTH * x + 20} y={0 + 20} texture={coinPIXITexture} />
                         wallsLine.push(sprite)
                         break;
                     default:
